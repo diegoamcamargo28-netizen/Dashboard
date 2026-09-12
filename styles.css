@@ -2,12 +2,12 @@
    VARIABLES Y RESET
    ========================================================= */
 :root {
-  --color-primary: #2563eb;       /* Azul corporativo - confianza */
-  --color-primary-dark: #1e40af;
-  --color-success: #10b981;       /* Verde - ingresos / pagado */
+  --color-primary: #d97706;       /* Naranja - principal */
+  --color-primary-dark: #b45309;
+  --color-success: #10b981;       /* Verde - ingresos */
   --color-warning: #f59e0b;       /* Ámbar - pendiente */
   --color-danger: #ef4444;        /* Rojo - vencido / egreso */
-  --color-bg: #f5f7fb;            /* Fondo general */
+  --color-bg: #fef3c7;            /* Fondo cálido tipo galleta */
   --color-surface: #ffffff;       /* Tarjetas */
   --color-border: #e5e7eb;
   --color-text: #1f2937;
@@ -63,7 +63,7 @@ body {
   display: grid;
   place-items: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .brand-name {
@@ -136,7 +136,7 @@ body {
 
 .kpi-icon.income  { background: #d1fae5; color: var(--color-success); }
 .kpi-icon.expense { background: #fee2e2; color: var(--color-danger); }
-.kpi-icon.profit  { background: #dbeafe; color: var(--color-primary); }
+.kpi-icon.profit  { background: #fed7aa; color: var(--color-primary); }
 .kpi-icon.balance { background: #fef3c7; color: var(--color-warning); }
 
 .kpi-label {
@@ -199,7 +199,50 @@ body {
 }
 
 /* =========================================================
-   TABLA DE MOVIMIENTOS
+   BOTONES
+   ========================================================= */
+.btn-primary, .btn-secondary {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+/* =========================================================
+   TABLA DE INVENTARIO Y MOVIMIENTOS
    ========================================================= */
 .table-wrap { overflow-x: auto; }
 
@@ -253,8 +296,122 @@ tbody tr:hover { background: #fafbfc; }
 .amount.income  { color: var(--color-success); font-weight: 600; }
 .amount.expense { color: var(--color-danger);  font-weight: 600; }
 
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-badge.low { background: #fee2e2; color: #991b1b; }
+.status-badge.medium { background: #fef3c7; color: #92400e; }
+.status-badge.high { background: #d1fae5; color: #065f46; }
+
 /* =========================================================
-   CUENTAS POR COBRAR / PAGAR
+   MODAL
+   ========================================================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.modal.show { display: flex; }
+
+.modal {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: var(--color-surface);
+  padding: 28px;
+  border-radius: var(--radius);
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 16px;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.close {
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+}
+
+.close:hover { color: var(--color-text); }
+
+/* =========================================================
+   FORMULARIOS
+   ========================================================= */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+/* =========================================================
+   RESUMEN FINANCIERO
    ========================================================= */
 .accounts-grid {
   display: grid;
@@ -294,6 +451,7 @@ tbody tr:hover { background: #fafbfc; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .charts-grid { grid-template-columns: 1fr; }
   .accounts-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px) {
@@ -301,4 +459,6 @@ tbody tr:hover { background: #fafbfc; }
   .kpi-grid { grid-template-columns: 1fr; }
   .header { flex-direction: column; align-items: flex-start; }
   .date-filter { width: 100%; overflow-x: auto; }
+  .card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .form-row { grid-template-columns: 1fr; }
 }

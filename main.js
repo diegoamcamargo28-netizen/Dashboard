@@ -1,69 +1,73 @@
 /* =========================================================
-   DATOS DE EJEMPLO (PLACEHOLDER)
+   DATOS DE EJEMPLO - GALLETAS 🍪
    ---------------------------------------------------------
-   TODO: Reemplazar estas constantes por llamadas a tu API
-   o base de datos. Cada función renderizadora lee desde aquí.
+   TODO: Reemplazar con llamadas a API o base de datos
    ========================================================= */
 
-// KPIs del mes actual
+// KPIs Financieros
 const KPI_DATA = {
-  income:  { value: 4850000, change: 12.4, direction: "up"   },
-  expense: { value: 2130000, change: -3.2, direction: "down" },
-  profit:  { value: 2720000, change: 18.7, direction: "up"   },
-  balance: { value: 6420000, change: 5.1,  direction: "up"   }
+  income:  { value: 2850000, change: 15.4, direction: "up"   },
+  expense: { value: 1130000, change: -8.2, direction: "down" },
+  profit:  { value: 1720000, change: 22.7, direction: "up"   },
+  balance: { value: 3420000, change: 12.1, direction: "up"   }
 };
 
 // Datos para gráfico de línea (últimos 6 meses)
 const MONTHLY_DATA = {
-  labels: ["May", "Jun", "Jul", "Ago", "Sep", "Oct"],
-  income:  [3200000, 3800000, 4100000, 3900000, 4500000, 4850000],
-  expense: [2400000, 2600000, 2300000, 2500000, 2200000, 2130000]
+  labels: ["Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre"],
+  income:  [1800000, 2100000, 2300000, 2150000, 2600000, 2850000],
+  expense: [900000, 1100000, 950000, 1200000, 1050000, 1130000]
 };
 
-// Datos para gráfico de dona (gastos por categoría)
+// Categorías de gastos
 const EXPENSE_CATEGORIES = {
-  labels: ["Proveedores", "Servicios", "Nómina", "Arriendo", "Otros"],
-  data:   [780000, 420000, 540000, 280000, 110000]
+  labels: ["Ingredientes", "Empaque", "Servicios", "Transporte", "Otros"],
+  data:   [480000, 280000, 180000, 120000, 60000]
 };
 
-// Movimientos recientes
-const MOVEMENTS = [
-  { date: "2025-10-28", description: "Venta producto #1042",       category: "Ventas",      type: "income",  amount: 450000, status: "paid"    },
-  { date: "2025-10-27", description: "Pago electricidad octubre",  category: "Servicios",   type: "expense", amount: 85000,  status: "paid"    },
-  { date: "2025-10-26", description: "Factura cliente ABC Ltda",   category: "Ventas",      type: "income",  amount: 1200000,status: "pending" },
-  { date: "2025-10-25", description: "Compra materia prima",       category: "Proveedores", type: "expense", amount: 320000, status: "paid"    },
-  { date: "2025-10-24", description: "Pago arriendo local",        category: "Arriendo",    type: "expense", amount: 280000, status: "paid"    },
-  { date: "2025-10-22", description: "Servicio de aseo",           category: "Servicios",   type: "expense", amount: 95000,  status: "overdue" },
-  { date: "2025-10-20", description: "Venta online #1038",         category: "Ventas",      type: "income",  amount: 230000, status: "paid"    }
+// Inventario de Ingredientes
+let INGREDIENTS = [
+  { id: 1, name: "Harina de trigo", quantity: 25, unit: "Kg", price: 2500, date: "2025-10-15" },
+  { id: 2, name: "Azúcar blanca", quantity: 18, unit: "Kg", price: 3200, date: "2025-10-16" },
+  { id: 3, name: "Mantequilla", quantity: 12, unit: "Kg", price: 8500, date: "2025-10-14" },
+  { id: 4, name: "Huevos", quantity: 144, unit: "unidades", price: 300, date: "2025-10-18" },
+  { id: 5, name: "Vainilla", quantity: 2, unit: "L", price: 12000, date: "2025-10-10" },
+  { id: 6, name: "Chips de chocolate", quantity: 5, unit: "Kg", price: 18000, date: "2025-10-17" }
 ];
 
-// Cuentas por cobrar
-const RECEIVABLES = [
-  { name: "ABC Ltda",       amount: 1200000, dueDate: "2025-11-05" },
-  { name: "Comercial XYZ",  amount: 780000,  dueDate: "2025-11-12" },
-  { name: "Juan Pérez",     amount: 150000,  dueDate: "2025-11-20" }
-];
-
-// Cuentas por pagar
-const PAYABLES = [
-  { name: "Proveedor Alfa",   amount: 450000, dueDate: "2025-11-03" },
-  { name: "Servicio de aseo", amount: 95000,  dueDate: "2025-10-30" },
-  { name: "Banco XYZ",        amount: 320000, dueDate: "2025-11-15" }
+// Movimientos de Dinero
+let MOVEMENTS = [
+  { id: 1, date: "2025-10-28", description: "Venta galletas chocolate (50 unidades)", type: "income", category: "sales", amount: 450000, status: "paid" },
+  { id: 2, date: "2025-10-27", description: "Compra ingredientes - proveedor local", type: "expense", category: "ingredients", amount: 280000, status: "paid" },
+  { id: 3, date: "2025-10-26", description: "Venta online - 30 paquetes", type: "income", category: "sales", amount: 600000, status: "pending" },
+  { id: 4, date: "2025-10-25", description: "Compra empaque y bolsas", type: "expense", category: "packaging", amount: 120000, status: "paid" },
+  { id: 5, date: "2025-10-24", description: "Servicio internet y electricidad", type: "expense", category: "utilities", amount: 95000, status: "paid" },
+  { id: 6, date: "2025-10-22", description: "Venta local tienda - 15 kg galletas", type: "income", category: "sales", amount: 350000, status: "overdue" },
+  { id: 7, date: "2025-10-20", description: "Transporte de productos", type: "expense", category: "transportation", amount: 85000, status: "paid" }
 ];
 
 /* =========================================================
    UTILIDADES
    ========================================================= */
 
-// Formatea un número como moneda chilena: $ 1.250.000
 function formatCurrency(value) {
   return "$ " + value.toLocaleString("es-CL");
 }
 
-// Formatea fecha ISO a formato legible
 function formatDate(iso) {
   const d = new Date(iso + "T00:00:00");
   return d.toLocaleDateString("es-CL", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+function getStockStatus(quantity) {
+  if (quantity < 5) return { status: "low", label: "Bajo" };
+  if (quantity < 15) return { status: "medium", label: "Medio" };
+  return { status: "high", label: "Suficiente" };
+}
+
+function getCurrentDate() {
+  const today = new Date();
+  return today.toISOString().split('T')[0];
 }
 
 /* =========================================================
@@ -74,8 +78,8 @@ function renderKPIs() {
   const cards = [
     { key: "income",  label: "Ingresos del mes", icon: "📈", cls: "income"  },
     { key: "expense", label: "Gastos del mes",   icon: "📉", cls: "expense" },
-    { key: "profit",  label: "Utilidad neta",    icon: "💰", cls: "profit"  },
-    { key: "balance", label: "Saldo en caja",    icon: "🏦", cls: "balance" }
+    { key: "profit",  label: "Ganancia neta",    icon: "💰", cls: "profit"  },
+    { key: "balance", label: "Monto en caja",    icon: "🏦", cls: "balance" }
   ];
 
   grid.innerHTML = cards.map(c => {
@@ -97,7 +101,32 @@ function renderKPIs() {
 }
 
 /* =========================================================
-   RENDERIZADO DE TABLA DE MOVIMIENTOS
+   RENDERIZADO DE INVENTARIO
+   ========================================================= */
+function renderInventory() {
+  const tbody = document.getElementById("inventoryTable");
+
+  tbody.innerHTML = INGREDIENTS.map(ing => {
+    const stock = getStockStatus(ing.quantity);
+    const totalValue = ing.quantity * ing.price;
+    return `
+      <tr>
+        <td>${ing.name}</td>
+        <td>${ing.quantity}</td>
+        <td>${ing.unit}</td>
+        <td>${formatCurrency(ing.price)}</td>
+        <td><strong>${formatCurrency(totalValue)}</strong></td>
+        <td><span class="status-badge ${stock.status}">${stock.label}</span></td>
+        <td>
+          <button class="btn-danger" onclick="deleteIngredient(${ing.id})">Eliminar</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+/* =========================================================
+   RENDERIZADO DE MOVIMIENTOS
    ========================================================= */
 function renderMovements() {
   const tbody = document.getElementById("movementsTable");
@@ -123,37 +152,80 @@ function renderMovements() {
         <td><span class="type-pill ${t.cls}">${t.label}</span></td>
         <td class="amount ${m.type}">${prefix}${formatCurrency(m.amount)}</td>
         <td><span class="badge ${s.cls}">${s.label}</span></td>
+        <td>
+          <button class="btn-danger" onclick="deleteMovement(${m.id})">Eliminar</button>
+        </td>
       </tr>
     `;
   }).join("");
 }
 
 /* =========================================================
-   RENDERIZADO DE CUENTAS POR COBRAR / PAGAR
+   RESUMEN FINANCIERO MENSUAL
    ========================================================= */
-function renderAccounts() {
-  const rec = document.getElementById("receivablesList");
-  const pay = document.getElementById("payablesList");
+function renderMonthlySummary() {
+  const incomesDiv = document.getElementById("monthlyIncomesSummary");
+  const expensesDiv = document.getElementById("monthlyExpensesSummary");
 
-  rec.innerHTML = RECEIVABLES.map(a => `
-    <div class="account-item">
-      <div class="account-info">
-        <div class="name">${a.name}</div>
-        <div class="date">Vence: ${formatDate(a.dueDate)}</div>
-      </div>
-      <div class="account-amount receivable">${formatCurrency(a.amount)}</div>
-    </div>
-  `).join("");
+  const totalIncomes = MOVEMENTS
+    .filter(m => m.type === "income")
+    .reduce((sum, m) => sum + m.amount, 0);
 
-  pay.innerHTML = PAYABLES.map(a => `
-    <div class="account-item">
-      <div class="account-info">
-        <div class="name">${a.name}</div>
-        <div class="date">Vence: ${formatDate(a.dueDate)}</div>
+  const totalExpenses = MOVEMENTS
+    .filter(m => m.type === "expense")
+    .reduce((sum, m) => sum + m.amount, 0);
+
+  const incomesDetail = MOVEMENTS
+    .filter(m => m.type === "income")
+    .slice(0, 3);
+
+  const expensesDetail = MOVEMENTS
+    .filter(m => m.type === "expense")
+    .slice(0, 3);
+
+  incomesDiv.innerHTML = `
+    <div class="account-item" style="padding: 20px 0; border: none;">
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: var(--color-success);">
+          ${formatCurrency(totalIncomes)}
+        </div>
+        <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">
+          Total ingresos registrados
+        </div>
       </div>
-      <div class="account-amount payable">${formatCurrency(a.amount)}</div>
     </div>
-  `).join("");
+    ${incomesDetail.map(m => `
+      <div class="account-item">
+        <div class="account-info">
+          <div class="name">${m.description}</div>
+          <div class="date">${formatDate(m.date)}</div>
+        </div>
+        <div class="account-amount receivable">+${formatCurrency(m.amount)}</div>
+      </div>
+    `).join("")}
+  `;
+
+  expensesDiv.innerHTML = `
+    <div class="account-item" style="padding: 20px 0; border: none;">
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: var(--color-danger);">
+          ${formatCurrency(totalExpenses)}
+        </div>
+        <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">
+          Total gastos registrados
+        </div>
+      </div>
+    </div>
+    ${expensesDetail.map(m => `
+      <div class="account-item">
+        <div class="account-info">
+          <div class="name">${m.description}</div>
+          <div class="date">${formatDate(m.date)}</div>
+        </div>
+        <div class="account-amount payable">-${formatCurrency(m.amount)}</div>
+      </div>
+    `).join("")}
+  `;
 }
 
 /* =========================================================
@@ -230,10 +302,10 @@ function renderDoughnutChart() {
       datasets: [{
         data: EXPENSE_CATEGORIES.data,
         backgroundColor: [
-          "#2563eb", // Proveedores
+          "#d97706", // Ingredientes
+          "#f59e0b", // Empaque
           "#10b981", // Servicios
-          "#f59e0b", // Nómina
-          "#8b5cf6", // Arriendo
+          "#8b5cf6", // Transporte
           "#6b7280"  // Otros
         ],
         borderWidth: 0,
@@ -260,8 +332,130 @@ function renderDoughnutChart() {
 }
 
 /* =========================================================
+   GESTIÓN DE MODALES
+   ========================================================= */
+function openModal(modalId) {
+  document.getElementById(modalId).classList.add("show");
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.remove("show");
+}
+
+function setupModalHandlers() {
+  // Modal de Ingredientes
+  document.getElementById("btnAddIngredient").addEventListener("click", () => {
+    openModal("ingredientModal");
+  });
+
+  document.getElementById("closeIngredientModal").addEventListener("click", () => {
+    closeModal("ingredientModal");
+  });
+
+  document.getElementById("cancelIngredientForm").addEventListener("click", () => {
+    closeModal("ingredientModal");
+  });
+
+  // Modal de Movimientos
+  document.getElementById("btnAddMovement").addEventListener("click", () => {
+    document.getElementById("movementDate").valueAsDate = new Date();
+    openModal("movementModal");
+  });
+
+  document.getElementById("closeMovementModal").addEventListener("click", () => {
+    closeModal("movementModal");
+  });
+
+  document.getElementById("cancelMovementForm").addEventListener("click", () => {
+    closeModal("movementModal");
+  });
+
+  // Cerrar modales al hacer clic fuera
+  window.addEventListener("click", (event) => {
+    const ingredientModal = document.getElementById("ingredientModal");
+    const movementModal = document.getElementById("movementModal");
+    if (event.target === ingredientModal) closeModal("ingredientModal");
+    if (event.target === movementModal) closeModal("movementModal");
+  });
+}
+
+/* =========================================================
+   FORMULARIOS - AGREGAR INGREDIENTE
+   ========================================================= */
+function setupIngredientForm() {
+  document.getElementById("ingredientForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("ingredientName").value;
+    const quantity = parseFloat(document.getElementById("ingredientQuantity").value);
+    const unit = document.getElementById("ingredientUnit").value;
+    const price = parseFloat(document.getElementById("ingredientPrice").value);
+
+    const newId = Math.max(...INGREDIENTS.map(ing => ing.id), 0) + 1;
+    INGREDIENTS.push({
+      id: newId,
+      name,
+      quantity,
+      unit,
+      price,
+      date: getCurrentDate()
+    });
+
+    document.getElementById("ingredientForm").reset();
+    closeModal("ingredientModal");
+    renderInventory();
+  });
+}
+
+function deleteIngredient(id) {
+  if (confirm("¿Estás seguro de que deseas eliminar este ingrediente?")) {
+    INGREDIENTS = INGREDIENTS.filter(ing => ing.id !== id);
+    renderInventory();
+  }
+}
+
+/* =========================================================
+   FORMULARIOS - AGREGAR MOVIMIENTO
+   ========================================================= */
+function setupMovementForm() {
+  document.getElementById("movementForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const date = document.getElementById("movementDate").value;
+    const description = document.getElementById("movementDescription").value;
+    const type = document.getElementById("movementType").value;
+    const category = document.getElementById("movementCategory").value;
+    const amount = parseFloat(document.getElementById("movementAmount").value);
+    const status = document.getElementById("movementStatus").value;
+
+    const newId = Math.max(...MOVEMENTS.map(m => m.id), 0) + 1;
+    MOVEMENTS.push({
+      id: newId,
+      date,
+      description,
+      type,
+      category,
+      amount,
+      status
+    });
+
+    document.getElementById("movementForm").reset();
+    closeModal("movementModal");
+    renderMovements();
+    renderMonthlySummary();
+  });
+}
+
+function deleteMovement(id) {
+  if (confirm("¿Estás seguro de que deseas eliminar este movimiento?")) {
+    MOVEMENTS = MOVEMENTS.filter(m => m.id !== id);
+    renderMovements();
+    renderMonthlySummary();
+  }
+}
+
+/* =========================================================
    FILTRO DE RANGO DE FECHAS
-   TODO: Conectar con tu backend para filtrar datos reales.
    ========================================================= */
 function setupDateFilter() {
   const buttons = document.querySelectorAll("#dateFilter button");
@@ -271,8 +465,7 @@ function setupDateFilter() {
       btn.classList.add("active");
       const range = btn.dataset.range;
       console.log("Rango seleccionado:", range);
-      // TODO: Aquí llamarías a tu API con el rango elegido
-      // y re-renderizarías KPIs, gráficos y tabla.
+      // TODO: Filtrar datos según el rango
     });
   });
 }
@@ -282,9 +475,13 @@ function setupDateFilter() {
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   renderKPIs();
+  renderInventory();
   renderMovements();
-  renderAccounts();
+  renderMonthlySummary();
   renderLineChart();
   renderDoughnutChart();
   setupDateFilter();
+  setupModalHandlers();
+  setupIngredientForm();
+  setupMovementForm();
 });
