@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Contable — Mi Negocio</title>
+  <title>Dashboard Galletas - Gestión de Venta y Inventario</title>
 
   <!-- Chart.js vía CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- CSS local (ruta corregida) -->
+  <!-- CSS local -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,10 +18,10 @@
     <!-- ================= HEADER ================= -->
     <header class="header">
       <div class="brand">
-        <div class="brand-logo">MN</div>
+        <div class="brand-logo">🍪</div>
         <div>
-          <div class="brand-name">Mi Negocio SpA</div>
-          <div class="brand-sub">Dashboard contable</div>
+          <div class="brand-name">Sweet Cookies</div>
+          <div class="brand-sub">Gestión de venta de galletas</div>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
       </div>
     </header>
 
-    <!-- ================= KPIs ================= -->
+    <!-- ================= KPIs FINANCIEROS ================= -->
     <section class="kpi-grid" id="kpiGrid">
       <!-- Se rellenan dinámicamente con JS -->
     </section>
@@ -66,13 +66,81 @@
       </div>
     </section>
 
-    <!-- ================= MOVIMIENTOS RECIENTES ================= -->
+    <!-- ================= INVENTARIO DE INGREDIENTES ================= -->
     <section class="card" style="margin-bottom: 24px;">
       <div class="card-header">
         <div>
-          <div class="card-title">Movimientos recientes</div>
-          <div class="card-subtitle">Últimas transacciones registradas</div>
+          <div class="card-title">📦 Inventario de Ingredientes</div>
+          <div class="card-subtitle">Stock actual de materia prima</div>
         </div>
+        <button class="btn-primary" id="btnAddIngredient">+ Agregar Ingrediente</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ingrediente</th>
+              <th>Cantidad</th>
+              <th>Unidad</th>
+              <th>Precio Unitario</th>
+              <th>Valor Total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= FORMULARIO AGREGAR INGREDIENTE (Modal) ================= -->
+    <div id="ingredientModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Agregar Ingrediente</h2>
+          <span class="close" id="closeIngredientModal">&times;</span>
+        </div>
+        <form id="ingredientForm">
+          <div class="form-group">
+            <label>Nombre del Ingrediente</label>
+            <input type="text" id="ingredientName" placeholder="Ej: Harina de trigo" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Cantidad</label>
+              <input type="number" id="ingredientQuantity" placeholder="0" step="0.01" required />
+            </div>
+            <div class="form-group">
+              <label>Unidad</label>
+              <select id="ingredientUnit" required>
+                <option>Kg</option>
+                <option>g</option>
+                <option>L</option>
+                <option>ml</option>
+                <option>unidades</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Precio Unitario ($)</label>
+            <input type="number" id="ingredientPrice" placeholder="0" step="0.01" required />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar Ingrediente</button>
+            <button type="button" class="btn-secondary" id="cancelIngredientForm">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= MOVIMIENTOS DE DINERO ================= -->
+    <section class="card" style="margin-bottom: 24px;">
+      <div class="card-header">
+        <div>
+          <div class="card-title">💰 Movimientos de Dinero</div>
+          <div class="card-subtitle">Registro de ingresos y gastos</div>
+        </div>
+        <button class="btn-primary" id="btnAddMovement">+ Nuevo Movimiento</button>
       </div>
       <div class="table-wrap">
         <table>
@@ -84,6 +152,7 @@
               <th>Tipo</th>
               <th>Monto</th>
               <th>Estado</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="movementsTable"></tbody>
@@ -91,32 +160,88 @@
       </div>
     </section>
 
-    <!-- ================= CUENTAS POR COBRAR / PAGAR ================= -->
+    <!-- ================= FORMULARIO AGREGAR MOVIMIENTO (Modal) ================= -->
+    <div id="movementModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Registrar Movimiento</h2>
+          <span class="close" id="closeMovementModal">&times;</span>
+        </div>
+        <form id="movementForm">
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" id="movementDate" required />
+          </div>
+          <div class="form-group">
+            <label>Descripción</label>
+            <input type="text" id="movementDescription" placeholder="Ej: Venta de galletas chocolate" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tipo</label>
+              <select id="movementType" required>
+                <option value="income">Ingreso</option>
+                <option value="expense">Gasto</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Categoría</label>
+              <select id="movementCategory" required>
+                <option value="sales">Venta de galletas</option>
+                <option value="ingredients">Compra de ingredientes</option>
+                <option value="packaging">Empaque y presentación</option>
+                <option value="utilities">Servicios</option>
+                <option value="transportation">Transporte</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Monto ($)</label>
+            <input type="number" id="movementAmount" placeholder="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="movementStatus" required>
+              <option value="paid">Pagado</option>
+              <option value="pending">Pendiente</option>
+              <option value="overdue">Vencido</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar Movimiento</button>
+            <button type="button" class="btn-secondary" id="cancelMovementForm">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= RESUMEN FINANCIERO ================= -->
     <section class="accounts-grid">
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">Cuentas por cobrar</div>
-            <div class="card-subtitle">Pagos pendientes de clientes</div>
+            <div class="card-title">📊 Ingresos del Mes</div>
+            <div class="card-subtitle">Total de ventas</div>
           </div>
         </div>
-        <div id="receivablesList"></div>
+        <div id="monthlyIncomesSummary"></div>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">Cuentas por pagar</div>
-            <div class="card-subtitle">Obligaciones con proveedores</div>
+            <div class="card-title">📋 Gastos del Mes</div>
+            <div class="card-subtitle">Total de egresos</div>
           </div>
         </div>
-        <div id="payablesList"></div>
+        <div id="monthlyExpensesSummary"></div>
       </div>
     </section>
 
   </div>
 
-  <!-- JS local (ruta corregida) -->
+  <!-- JS local -->
   <script src="main.js"></script>
 </body>
 </html>
